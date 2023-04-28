@@ -1,0 +1,21 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# IDE & editors
+.idea
+.vscode
+
+# Dependency directory
+node_modules/
+
+# Compiled and temporary files
+.eslintcache
+.tmp/
+.benchmark/
+out/
+
+# Other files
+package-lock.json
+yarn.lock
