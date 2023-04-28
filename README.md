@@ -1,4 +1,4 @@
-# fast-glob
+# fast-glob-clone
 
 > It's a very fast and efficient [glob][glob_definition] library for [Node.js][node_js].
 
@@ -9,70 +9,70 @@ This package provides methods for traversing the file system and returning pathn
 <details>
 <summary><strong>Details</strong></summary>
 
-* [Highlights](#highlights)
-* [Donation](#donation)
-* [Old and modern mode](#old-and-modern-mode)
-* [Pattern syntax](#pattern-syntax)
-  * [Basic syntax](#basic-syntax)
-  * [Advanced syntax](#advanced-syntax)
-* [Installation](#installation)
-* [API](#api)
-  * [Asynchronous](#asynchronous)
-  * [Synchronous](#synchronous)
-  * [Stream](#stream)
-    * [patterns](#patterns)
-    * [[options]](#options)
-  * [Helpers](#helpers)
-    * [generateTasks](#generatetaskspatterns-options)
-    * [isDynamicPattern](#isdynamicpatternpattern-options)
-    * [escapePath](#escapepathpattern)
-* [Options](#options-3)
-  * [Common](#common)
-    * [concurrency](#concurrency)
-    * [cwd](#cwd)
-    * [deep](#deep)
-    * [followSymbolicLinks](#followsymboliclinks)
-    * [fs](#fs)
-    * [ignore](#ignore)
-    * [suppressErrors](#suppresserrors)
-    * [throwErrorOnBrokenSymbolicLink](#throwerroronbrokensymboliclink)
-  * [Output control](#output-control)
-    * [absolute](#absolute)
-    * [markDirectories](#markdirectories)
-    * [objectMode](#objectmode)
-    * [onlyDirectories](#onlydirectories)
-    * [onlyFiles](#onlyfiles)
-    * [stats](#stats)
-    * [unique](#unique)
-  * [Matching control](#matching-control)
-    * [braceExpansion](#braceexpansion)
-    * [caseSensitiveMatch](#casesensitivematch)
-    * [dot](#dot)
-    * [extglob](#extglob)
-    * [globstar](#globstar)
-    * [baseNameMatch](#basenamematch)
-* [FAQ](#faq)
-  * [What is a static or dynamic pattern?](#what-is-a-static-or-dynamic-pattern)
-  * [How to write patterns on Windows?](#how-to-write-patterns-on-windows)
-  * [Why are parentheses match wrong?](#why-are-parentheses-match-wrong)
-  * [How to exclude directory from reading?](#how-to-exclude-directory-from-reading)
-  * [How to use UNC path?](#how-to-use-unc-path)
-  * [Compatible with `node-glob`?](#compatible-with-node-glob)
-* [Benchmarks](#benchmarks)
-  * [Server](#server)
-  * [Nettop](#nettop)
-* [Changelog](#changelog)
-* [License](#license)
+-   [Highlights](#highlights)
+-   [Donation](#donation)
+-   [Old and modern mode](#old-and-modern-mode)
+-   [Pattern syntax](#pattern-syntax)
+    -   [Basic syntax](#basic-syntax)
+    -   [Advanced syntax](#advanced-syntax)
+-   [Installation](#installation)
+-   [API](#api)
+    -   [Asynchronous](#asynchronous)
+    -   [Synchronous](#synchronous)
+    -   [Stream](#stream)
+        -   [patterns](#patterns)
+        -   [[options]](#options)
+    -   [Helpers](#helpers)
+        -   [generateTasks](#generatetaskspatterns-options)
+        -   [isDynamicPattern](#isdynamicpatternpattern-options)
+        -   [escapePath](#escapepathpattern)
+-   [Options](#options-3)
+    -   [Common](#common)
+        -   [concurrency](#concurrency)
+        -   [cwd](#cwd)
+        -   [deep](#deep)
+        -   [followSymbolicLinks](#followsymboliclinks)
+        -   [fs](#fs)
+        -   [ignore](#ignore)
+        -   [suppressErrors](#suppresserrors)
+        -   [throwErrorOnBrokenSymbolicLink](#throwerroronbrokensymboliclink)
+    -   [Output control](#output-control)
+        -   [absolute](#absolute)
+        -   [markDirectories](#markdirectories)
+        -   [objectMode](#objectmode)
+        -   [onlyDirectories](#onlydirectories)
+        -   [onlyFiles](#onlyfiles)
+        -   [stats](#stats)
+        -   [unique](#unique)
+    -   [Matching control](#matching-control)
+        -   [braceExpansion](#braceexpansion)
+        -   [caseSensitiveMatch](#casesensitivematch)
+        -   [dot](#dot)
+        -   [extglob](#extglob)
+        -   [globstar](#globstar)
+        -   [baseNameMatch](#basenamematch)
+-   [FAQ](#faq)
+    -   [What is a static or dynamic pattern?](#what-is-a-static-or-dynamic-pattern)
+    -   [How to write patterns on Windows?](#how-to-write-patterns-on-windows)
+    -   [Why are parentheses match wrong?](#why-are-parentheses-match-wrong)
+    -   [How to exclude directory from reading?](#how-to-exclude-directory-from-reading)
+    -   [How to use UNC path?](#how-to-use-unc-path)
+    -   [Compatible with `node-glob`?](#compatible-with-node-glob)
+-   [Benchmarks](#benchmarks)
+    -   [Server](#server)
+    -   [Nettop](#nettop)
+-   [Changelog](#changelog)
+-   [License](#license)
 
 </details>
 
 ## Highlights
 
-* Fast. Probably the fastest.
-* Supports multiple and negative patterns.
-* Synchronous, Promise and Stream API.
-* Object mode. Can return more than just strings.
-* Error-tolerant.
+-   Fast. Probably the fastest.
+-   Supports multiple and negative patterns.
+-   Synchronous, Promise and Stream API.
+-   Object mode. Can return more than just strings.
+-   Error-tolerant.
 
 ## Donation
 
@@ -84,8 +84,8 @@ Do you like this project? Support it by donating, creating an issue or pull requ
 
 This package works in two modes, depending on the environment in which it is used.
 
-* **Old mode**. Node.js below 10.10 or when the [`stats`](#stats) option is *enabled*.
-* **Modern mode**. Node.js 10.10+ and the [`stats`](#stats) option is *disabled*.
+-   **Old mode**. Node.js below 10.10 or when the [`stats`](#stats) option is _enabled_.
+-   **Modern mode**. Node.js 10.10+ and the [`stats`](#stats) option is _disabled_.
 
 The modern mode is faster. Learn more about the [internal mechanism][nodelib_fs_scandir_old_and_modern_modern].
 
@@ -99,41 +99,41 @@ There is more than one form of syntax: basic and advanced. Below is a brief over
 
 ### Basic syntax
 
-* An asterisk (`*`) — matches everything except slashes (path separators), hidden files (names starting with `.`).
-* A double star or globstar (`**`) — matches zero or more directories.
-* Question mark (`?`) – matches any single character except slashes (path separators).
-* Sequence (`[seq]`) — matches any character in sequence.
+-   An asterisk (`*`) — matches everything except slashes (path separators), hidden files (names starting with `.`).
+-   A double star or globstar (`**`) — matches zero or more directories.
+-   Question mark (`?`) – matches any single character except slashes (path separators).
+-   Sequence (`[seq]`) — matches any character in sequence.
 
 > :book: A few additional words about the [basic matching behavior][picomatch_matching_behavior].
 
 Some examples:
 
-* `src/**/*.js` — matches all files in the `src` directory (any level of nesting) that have the `.js` extension.
-* `src/*.??` — matches all files in the `src` directory (only first level of nesting) that have a two-character extension.
-* `file-[01].js` — matches files: `file-0.js`, `file-1.js`.
+-   `src/**/*.js` — matches all files in the `src` directory (any level of nesting) that have the `.js` extension.
+-   `src/*.??` — matches all files in the `src` directory (only first level of nesting) that have a two-character extension.
+-   `file-[01].js` — matches files: `file-0.js`, `file-1.js`.
 
 ### Advanced syntax
 
-* [Escapes characters][micromatch_backslashes] (`\\`) — matching special characters (`$^*+?()[]`) as literals.
-* [POSIX character classes][picomatch_posix_brackets] (`[[:digit:]]`).
-* [Extended globs][micromatch_extglobs] (`?(pattern-list)`).
-* [Bash style brace expansions][micromatch_braces] (`{}`).
-* [Regexp character classes][micromatch_regex_character_classes] (`[1-5]`).
-* [Regex groups][regular_expressions_brackets] (`(a|b)`).
+-   [Escapes characters][micromatch_backslashes] (`\\`) — matching special characters (`$^*+?()[]`) as literals.
+-   [POSIX character classes][picomatch_posix_brackets] (`[[:digit:]]`).
+-   [Extended globs][micromatch_extglobs] (`?(pattern-list)`).
+-   [Bash style brace expansions][micromatch_braces] (`{}`).
+-   [Regexp character classes][micromatch_regex_character_classes] (`[1-5]`).
+-   [Regex groups][regular_expressions_brackets] (`(a|b)`).
 
 > :book: A few additional words about the [advanced matching behavior][micromatch_extended_globbing].
 
 Some examples:
 
-* `src/**/*.{css,scss}` — matches all files in the `src` directory (any level of nesting) that have the `.css` or `.scss` extension.
-* `file-[[:digit:]].js` — matches files: `file-0.js`, `file-1.js`, …, `file-9.js`.
-* `file-{1..3}.js` — matches files: `file-1.js`, `file-2.js`, `file-3.js`.
-* `file-(1|2)` — matches files: `file-1.js`, `file-2.js`.
+-   `src/**/*.{css,scss}` — matches all files in the `src` directory (any level of nesting) that have the `.css` or `.scss` extension.
+-   `file-[[:digit:]].js` — matches files: `file-0.js`, `file-1.js`, …, `file-9.js`.
+-   `file-{1..3}.js` — matches files: `file-1.js`, `file-2.js`, `file-3.js`.
+-   `file-(1|2)` — matches files: `file-1.js`, `file-2.js`.
 
 ## Installation
 
 ```console
-npm install fast-glob
+npm install fast-glob-clone
 ```
 
 ## API
@@ -141,15 +141,15 @@ npm install fast-glob
 ### Asynchronous
 
 ```js
-fg(patterns, [options])
+fg(patterns, [options]);
 ```
 
 Returns a `Promise` with an array of matching entries.
 
 ```js
-const fg = require('fast-glob');
+const fg = require("fast-glob-clone");
 
-const entries = await fg(['.editorconfig', '**/index.js'], { dot: true });
+const entries = await fg([".editorconfig", "**/index.js"], { dot: true });
 
 // ['.editorconfig', 'services/index.js']
 ```
@@ -157,15 +157,15 @@ const entries = await fg(['.editorconfig', '**/index.js'], { dot: true });
 ### Synchronous
 
 ```js
-fg.sync(patterns, [options])
+fg.sync(patterns, [options]);
 ```
 
 Returns an array of matching entries.
 
 ```js
-const fg = require('fast-glob');
+const fg = require("fast-glob-clone");
 
-const entries = fg.sync(['.editorconfig', '**/index.js'], { dot: true });
+const entries = fg.sync([".editorconfig", "**/index.js"], { dot: true });
 
 // ['.editorconfig', 'services/index.js']
 ```
@@ -173,15 +173,15 @@ const entries = fg.sync(['.editorconfig', '**/index.js'], { dot: true });
 ### Stream
 
 ```js
-fg.stream(patterns, [options])
+fg.stream(patterns, [options]);
 ```
 
 Returns a [`ReadableStream`][node_js_stream_readable_streams] when the `data` event will be emitted with matching entry.
 
 ```js
-const fg = require('fast-glob');
+const fg = require("fast-glob-clone");
 
-const stream = fg.stream(['.editorconfig', '**/index.js'], { dot: true });
+const stream = fg.stream([".editorconfig", "**/index.js"], { dot: true });
 
 for await (const entry of stream) {
 	// .editorconfig
@@ -191,8 +191,8 @@ for await (const entry of stream) {
 
 #### patterns
 
-* Required: `true`
-* Type: `string | string[]`
+-   Required: `true`
+-   Type: `string | string[]`
 
 Any correct pattern(s).
 
@@ -202,8 +202,8 @@ Any correct pattern(s).
 
 #### [options]
 
-* Required: `false`
-* Type: [`Options`](#options-3)
+-   Required: `false`
+-   Type: [`Options`](#options-3)
 
 See [Options](#options-3) section.
 
@@ -214,28 +214,30 @@ See [Options](#options-3) section.
 Returns the internal representation of patterns ([`Task`](./src/managers/tasks.ts) is a combining patterns by base directory).
 
 ```js
-fg.generateTasks('*');
+fg.generateTasks("*");
 
-[{
-    base: '.', // Parent directory for all patterns inside this task
-    dynamic: true, // Dynamic or static patterns are in this task
-    patterns: ['*'],
-    positive: ['*'],
-    negative: []
-}]
+[
+	{
+		base: ".", // Parent directory for all patterns inside this task
+		dynamic: true, // Dynamic or static patterns are in this task
+		patterns: ["*"],
+		positive: ["*"],
+		negative: [],
+	},
+];
 ```
 
 ##### patterns
 
-* Required: `true`
-* Type: `string | string[]`
+-   Required: `true`
+-   Type: `string | string[]`
 
 Any correct pattern(s).
 
 ##### [options]
 
-* Required: `false`
-* Type: [`Options`](#options-3)
+-   Required: `false`
+-   Type: [`Options`](#options-3)
 
 See [Options](#options-3) section.
 
@@ -246,21 +248,21 @@ Returns `true` if the passed pattern is a dynamic pattern.
 > :1234: [What is a static or dynamic pattern?](#what-is-a-static-or-dynamic-pattern)
 
 ```js
-fg.isDynamicPattern('*'); // true
-fg.isDynamicPattern('abc'); // false
+fg.isDynamicPattern("*"); // true
+fg.isDynamicPattern("abc"); // false
 ```
 
 ##### pattern
 
-* Required: `true`
-* Type: `string`
+-   Required: `true`
+-   Type: `string`
 
 Any correct pattern.
 
 ##### [options]
 
-* Required: `false`
-* Type: [`Options`](#options-3)
+-   Required: `false`
+-   Type: [`Options`](#options-3)
 
 See [Options](#options-3) section.
 
@@ -269,14 +271,14 @@ See [Options](#options-3) section.
 Returns a path with escaped special characters (`*?|(){}[]`, `!` at the beginning of line, `@+!` before the opening parenthesis).
 
 ```js
-fg.escapePath('!abc'); // \\!abc
-fg.escapePath('C:/Program Files (x86)'); // C:/Program Files \\(x86\\)
+fg.escapePath("!abc"); // \\!abc
+fg.escapePath("C:/Program Files (x86)"); // C:/Program Files \\(x86\\)
 ```
 
 ##### pattern
 
-* Required: `true`
-* Type: `string`
+-   Required: `true`
+-   Type: `string`
 
 Any string, for example, a path to a file.
 
@@ -286,8 +288,8 @@ Any string, for example, a path to a file.
 
 #### concurrency
 
-* Type: `number`
-* Default: `os.cpus().length`
+-   Type: `number`
+-   Default: `os.cpus().length`
 
 Specifies the maximum number of concurrent requests from a reader to read directories.
 
@@ -311,15 +313,15 @@ So, in fact, this package can **only make 4 concurrent requests to the FS**. You
 
 #### cwd
 
-* Type: `string`
-* Default: `process.cwd()`
+-   Type: `string`
+-   Default: `process.cwd()`
 
 The current working directory in which to search.
 
 #### deep
 
-* Type: `number`
-* Default: `Infinity`
+-   Type: `number`
+-   Default: `Infinity`
 
 Specifies the maximum depth of a read directory relative to the start directory.
 
@@ -334,20 +336,20 @@ dir/
 
 ```js
 // With base directory
-fg.sync('dir/**', { onlyFiles: false, deep: 1 }); // ['dir/one']
-fg.sync('dir/**', { onlyFiles: false, deep: 2 }); // ['dir/one', 'dir/one/two']
+fg.sync("dir/**", { onlyFiles: false, deep: 1 }); // ['dir/one']
+fg.sync("dir/**", { onlyFiles: false, deep: 2 }); // ['dir/one', 'dir/one/two']
 
 // With cwd option
-fg.sync('**', { onlyFiles: false, cwd: 'dir', deep: 1 }); // ['one']
-fg.sync('**', { onlyFiles: false, cwd: 'dir', deep: 2 }); // ['one', 'one/two']
+fg.sync("**", { onlyFiles: false, cwd: "dir", deep: 1 }); // ['one']
+fg.sync("**", { onlyFiles: false, cwd: "dir", deep: 2 }); // ['one', 'one/two']
 ```
 
 > :book: If you specify a pattern with some base directory, this directory will not participate in the calculation of the depth of the found directories. Think of it as a [`cwd`](#cwd) option.
 
 #### followSymbolicLinks
 
-* Type: `boolean`
-* Default: `true`
+-   Type: `boolean`
+-   Default: `true`
 
 Indicates whether to traverse descendants of symbolic link directories when expanding `**` patterns.
 
@@ -357,26 +359,26 @@ Indicates whether to traverse descendants of symbolic link directories when expa
 
 #### fs
 
-* Type: `FileSystemAdapter`
-* Default: `fs.*`
+-   Type: `FileSystemAdapter`
+-   Default: `fs.*`
 
 Custom implementation of methods for working with the file system.
 
 ```ts
 export interface FileSystemAdapter {
-    lstat?: typeof fs.lstat;
-    stat?: typeof fs.stat;
-    lstatSync?: typeof fs.lstatSync;
-    statSync?: typeof fs.statSync;
-    readdir?: typeof fs.readdir;
-    readdirSync?: typeof fs.readdirSync;
+	lstat?: typeof fs.lstat;
+	stat?: typeof fs.stat;
+	lstatSync?: typeof fs.lstatSync;
+	statSync?: typeof fs.statSync;
+	readdir?: typeof fs.readdir;
+	readdirSync?: typeof fs.readdirSync;
 }
 ```
 
 #### ignore
 
-* Type: `string[]`
-* Default: `[]`
+-   Type: `string[]`
+-   Default: `[]`
 
 An array of glob patterns to exclude matches. This is an alternative way to use negative patterns.
 
@@ -387,14 +389,14 @@ dir/
 ```
 
 ```js
-fg.sync(['*.json', '!package-lock.json']);            // ['package.json']
-fg.sync('*.json', { ignore: ['package-lock.json'] }); // ['package.json']
+fg.sync(["*.json", "!package-lock.json"]); // ['package.json']
+fg.sync("*.json", { ignore: ["package-lock.json"] }); // ['package.json']
 ```
 
 #### suppressErrors
 
-* Type: `boolean`
-* Default: `false`
+-   Type: `boolean`
+-   Default: `false`
 
 By default this package suppress only `ENOENT` errors. Set to `true` to suppress any error.
 
@@ -402,8 +404,8 @@ By default this package suppress only `ENOENT` errors. Set to `true` to suppress
 
 #### throwErrorOnBrokenSymbolicLink
 
-* Type: `boolean`
-* Default: `false`
+-   Type: `boolean`
+-   Default: `false`
 
 Throw an error when symbolic link is broken if `true` or safely return `lstat` call if `false`.
 
@@ -413,88 +415,88 @@ Throw an error when symbolic link is broken if `true` or safely return `lstat` c
 
 #### absolute
 
-* Type: `boolean`
-* Default: `false`
+-   Type: `boolean`
+-   Default: `false`
 
 Return the absolute path for entries.
 
 ```js
-fg.sync('*.js', { absolute: false }); // ['index.js']
-fg.sync('*.js', { absolute: true });  // ['/home/user/index.js']
+fg.sync("*.js", { absolute: false }); // ['index.js']
+fg.sync("*.js", { absolute: true }); // ['/home/user/index.js']
 ```
 
 > :book: This option is required if you want to use negative patterns with absolute path, for example, `!${__dirname}/*.js`.
 
 #### markDirectories
 
-* Type: `boolean`
-* Default: `false`
+-   Type: `boolean`
+-   Default: `false`
 
 Mark the directory path with the final slash.
 
 ```js
-fg.sync('*', { onlyFiles: false, markDirectories: false }); // ['index.js', 'controllers']
-fg.sync('*', { onlyFiles: false, markDirectories: true });  // ['index.js', 'controllers/']
+fg.sync("*", { onlyFiles: false, markDirectories: false }); // ['index.js', 'controllers']
+fg.sync("*", { onlyFiles: false, markDirectories: true }); // ['index.js', 'controllers/']
 ```
 
 #### objectMode
 
-* Type: `boolean`
-* Default: `false`
+-   Type: `boolean`
+-   Default: `false`
 
 Returns objects (instead of strings) describing entries.
 
 ```js
-fg.sync('*', { objectMode: false }); // ['src/index.js']
-fg.sync('*', { objectMode: true });  // [{ name: 'index.js', path: 'src/index.js', dirent: <fs.Dirent> }]
+fg.sync("*", { objectMode: false }); // ['src/index.js']
+fg.sync("*", { objectMode: true }); // [{ name: 'index.js', path: 'src/index.js', dirent: <fs.Dirent> }]
 ```
 
 The object has the following fields:
 
-* name (`string`) — the last part of the path (basename)
-* path (`string`) — full path relative to the pattern base directory
-* dirent ([`fs.Dirent`][node_js_fs_class_fs_dirent]) — instance of `fs.Dirent`
+-   name (`string`) — the last part of the path (basename)
+-   path (`string`) — full path relative to the pattern base directory
+-   dirent ([`fs.Dirent`][node_js_fs_class_fs_dirent]) — instance of `fs.Dirent`
 
 > :book: An object is an internal representation of entry, so getting it does not affect performance.
 
 #### onlyDirectories
 
-* Type: `boolean`
-* Default: `false`
+-   Type: `boolean`
+-   Default: `false`
 
 Return only directories.
 
 ```js
-fg.sync('*', { onlyDirectories: false }); // ['index.js', 'src']
-fg.sync('*', { onlyDirectories: true });  // ['src']
+fg.sync("*", { onlyDirectories: false }); // ['index.js', 'src']
+fg.sync("*", { onlyDirectories: true }); // ['src']
 ```
 
 > :book: If `true`, the [`onlyFiles`](#onlyfiles) option is automatically `false`.
 
 #### onlyFiles
 
-* Type: `boolean`
-* Default: `true`
+-   Type: `boolean`
+-   Default: `true`
 
 Return only files.
 
 ```js
-fg.sync('*', { onlyFiles: false }); // ['index.js', 'src']
-fg.sync('*', { onlyFiles: true });  // ['index.js']
+fg.sync("*", { onlyFiles: false }); // ['index.js', 'src']
+fg.sync("*", { onlyFiles: true }); // ['index.js']
 ```
 
 #### stats
 
-* Type: `boolean`
-* Default: `false`
+-   Type: `boolean`
+-   Default: `false`
 
 Enables an [object mode](#objectmode) with an additional field:
 
-* stats ([`fs.Stats`][node_js_fs_class_fs_stats]) — instance of `fs.Stats`
+-   stats ([`fs.Stats`][node_js_fs_class_fs_stats]) — instance of `fs.Stats`
 
 ```js
-fg.sync('*', { stats: false }); // ['src/index.js']
-fg.sync('*', { stats: true });  // [{ name: 'index.js', path: 'src/index.js', dirent: <fs.Dirent>, stats: <fs.Stats> }]
+fg.sync("*", { stats: false }); // ['src/index.js']
+fg.sync("*", { stats: true }); // [{ name: 'index.js', path: 'src/index.js', dirent: <fs.Dirent>, stats: <fs.Stats> }]
 ```
 
 > :book: Returns `fs.stat` instead of `fs.lstat` for symbolic links when the [`followSymbolicLinks`](#followsymboliclinks) option is specified.
@@ -503,14 +505,14 @@ fg.sync('*', { stats: true });  // [{ name: 'index.js', path: 'src/index.js', di
 
 #### unique
 
-* Type: `boolean`
-* Default: `true`
+-   Type: `boolean`
+-   Default: `true`
 
 Ensures that the returned entries are unique.
 
 ```js
-fg.sync(['*.json', 'package.json'], { unique: false }); // ['package.json', 'package.json']
-fg.sync(['*.json', 'package.json'], { unique: true });  // ['package.json']
+fg.sync(["*.json", "package.json"], { unique: false }); // ['package.json', 'package.json']
+fg.sync(["*.json", "package.json"], { unique: true }); // ['package.json']
 ```
 
 If `true` and similar entries are found, the result is the first found.
@@ -519,8 +521,8 @@ If `true` and similar entries are found, the result is the first found.
 
 #### braceExpansion
 
-* Type: `boolean`
-* Default: `true`
+-   Type: `boolean`
+-   Default: `true`
 
 Enables Bash-like brace expansion.
 
@@ -534,14 +536,14 @@ dir/
 ```
 
 ```js
-fg.sync('a{b,c}d', { braceExpansion: false }); // ['a{b,c}d']
-fg.sync('a{b,c}d', { braceExpansion: true });  // ['abd', 'acd']
+fg.sync("a{b,c}d", { braceExpansion: false }); // ['a{b,c}d']
+fg.sync("a{b,c}d", { braceExpansion: true }); // ['abd', 'acd']
 ```
 
 #### caseSensitiveMatch
 
-* Type: `boolean`
-* Default: `true`
+-   Type: `boolean`
+-   Default: `true`
 
 Enables a [case-sensitive][wikipedia_case_sensitivity] mode for matching files.
 
@@ -552,14 +554,14 @@ dir/
 ```
 
 ```js
-fg.sync('file.txt', { caseSensitiveMatch: false }); // ['file.txt', 'File.txt']
-fg.sync('file.txt', { caseSensitiveMatch: true });  // ['file.txt']
+fg.sync("file.txt", { caseSensitiveMatch: false }); // ['file.txt', 'File.txt']
+fg.sync("file.txt", { caseSensitiveMatch: true }); // ['file.txt']
 ```
 
 #### dot
 
-* Type: `boolean`
-* Default: `false`
+-   Type: `boolean`
+-   Default: `false`
 
 Allow patterns to match entries that begin with a period (`.`).
 
@@ -572,14 +574,14 @@ dir/
 ```
 
 ```js
-fg.sync('*', { dot: false }); // ['package.json']
-fg.sync('*', { dot: true });  // ['.editorconfig', 'package.json']
+fg.sync("*", { dot: false }); // ['package.json']
+fg.sync("*", { dot: true }); // ['.editorconfig', 'package.json']
 ```
 
 #### extglob
 
-* Type: `boolean`
-* Default: `true`
+-   Type: `boolean`
+-   Default: `true`
 
 Enables Bash-like `extglob` functionality.
 
@@ -592,14 +594,14 @@ dir/
 ```
 
 ```js
-fg.sync('*.+(json|md)', { extglob: false }); // []
-fg.sync('*.+(json|md)', { extglob: true });  // ['README.md', 'package.json']
+fg.sync("*.+(json|md)", { extglob: false }); // []
+fg.sync("*.+(json|md)", { extglob: true }); // ['README.md', 'package.json']
 ```
 
 #### globstar
 
-* Type: `boolean`
-* Default: `true`
+-   Type: `boolean`
+-   Default: `true`
 
 Enables recursively repeats a pattern containing `**`. If `false`, `**` behaves exactly like `*`.
 
@@ -610,14 +612,14 @@ dir/
 ```
 
 ```js
-fg.sync('**', { onlyFiles: false, globstar: false }); // ['a']
-fg.sync('**', { onlyFiles: false, globstar: true });  // ['a', 'a/b']
+fg.sync("**", { onlyFiles: false, globstar: false }); // ['a']
+fg.sync("**", { onlyFiles: false, globstar: true }); // ['a', 'a/b']
 ```
 
 #### baseNameMatch
 
-* Type: `boolean`
-* Default: `false`
+-   Type: `boolean`
+-   Default: `false`
 
 If set to `true`, then patterns without slashes will be matched against the basename of the path if it contains slashes.
 
@@ -628,8 +630,8 @@ dir/
 ```
 
 ```js
-fg.sync('*.md', { baseNameMatch: false }); // []
-fg.sync('*.md', { baseNameMatch: true });  // ['one/file.md']
+fg.sync("*.md", { baseNameMatch: false }); // []
+fg.sync("*.md", { baseNameMatch: true }); // ['one/file.md']
 ```
 
 ## FAQ
@@ -638,18 +640,18 @@ fg.sync('*.md', { baseNameMatch: true });  // ['one/file.md']
 
 All patterns can be divided into two types:
 
-* **static**. A pattern is considered static if it can be used to get an entry on the file system without using matching mechanisms. For example, the `file.js` pattern is a static pattern because we can just verify that it exists on the file system.
-* **dynamic**. A pattern is considered dynamic if it cannot be used directly to find occurrences without using a matching mechanisms. For example, the `*` pattern is a dynamic pattern because we cannot use this pattern directly.
+-   **static**. A pattern is considered static if it can be used to get an entry on the file system without using matching mechanisms. For example, the `file.js` pattern is a static pattern because we can just verify that it exists on the file system.
+-   **dynamic**. A pattern is considered dynamic if it cannot be used directly to find occurrences without using a matching mechanisms. For example, the `*` pattern is a dynamic pattern because we cannot use this pattern directly.
 
 A pattern is considered dynamic if it contains the following characters (`…` — any characters or their absence) or options:
 
-* The [`caseSensitiveMatch`](#casesensitivematch) option is disabled
-* `\\` (the escape character)
-* `*`, `?`, `!` (at the beginning of line)
-* `[…]`
-* `(…|…)`
-* `@(…)`, `!(…)`, `*(…)`, `?(…)`, `+(…)` (respects the [`extglob`](#extglob) option)
-* `{…,…}`, `{…..…}` (respects the [`braceExpansion`](#braceexpansion) option)
+-   The [`caseSensitiveMatch`](#casesensitivematch) option is disabled
+-   `\\` (the escape character)
+-   `*`, `?`, `!` (at the beginning of line)
+-   `[…]`
+-   `(…|…)`
+-   `@(…)`, `!(…)`, `*(…)`, `?(…)`, `+(…)` (respects the [`extglob`](#extglob) option)
+-   `{…,…}`, `{…..…}` (respects the [`braceExpansion`](#braceexpansion) option)
 
 ## How to write patterns on Windows?
 
@@ -658,19 +660,13 @@ Always use forward-slashes in glob expressions (patterns and [`ignore`](#ignore)
 **Bad**
 
 ```ts
-[
-	'directory\\*',
-	path.join(process.cwd(), '**')
-]
+["directory\\*", path.join(process.cwd(), "**")];
 ```
 
 **Good**
 
 ```ts
-[
-	'directory/*',
-	path.join(process.cwd(), '**').replace(/\\/g, '/')
-]
+["directory/*", path.join(process.cwd(), "**").replace(/\\/g, "/")];
 ```
 
 > :book: Use the [`normalize-path`][npm_normalize_path] or the [`unixify`][npm_unixify] package to convert Windows-style path to a Unix-style path.
@@ -685,13 +681,13 @@ dir/
 ```
 
 ```js
-fg.sync(['(special-*file).txt']) // []
+fg.sync(["(special-*file).txt"]); // []
 ```
 
 Refers to Bash. You need to escape special characters:
 
 ```js
-fg.sync(['\\(special-*file\\).txt']) // ['(special-*file).txt']
+fg.sync(["\\(special-*file\\).txt"]); // ['(special-*file).txt']
 ```
 
 Read more about [matching special characters as literals][picomatch_matching_special_characters_as_literals].
@@ -710,8 +706,8 @@ first/
 If you don't want to read the `second` directory, you must write the following pattern: `!**/second` or `!**/second/**`.
 
 ```js
-fg.sync(['**/*.md', '!**/second']);                 // ['first/file.md']
-fg.sync(['**/*.md'], { ignore: ['**/second/**'] }); // ['first/file.md']
+fg.sync(["**/*.md", "!**/second"]); // ['first/file.md']
+fg.sync(["**/*.md"], { ignore: ["**/second/**"] }); // ['first/file.md']
 ```
 
 > :warning: When you write `!**/second/**/*` it means that the directory will be **read**, but all the entries will not be included in the results.
@@ -723,31 +719,31 @@ You have to understand that if you write the pattern to exclude directories, the
 You cannot use [Uniform Naming Convention (UNC)][unc_path] paths as patterns (due to syntax), but you can use them as [`cwd`](#cwd) directory.
 
 ```ts
-fg.sync('*', { cwd: '\\\\?\\C:\\Python27' /* or //?/C:/Python27 */ });
-fg.sync('Python27/*', { cwd: '\\\\?\\C:\\' /* or //?/C:/ */ });
+fg.sync("*", { cwd: "\\\\?\\C:\\Python27" /* or //?/C:/Python27 */ });
+fg.sync("Python27/*", { cwd: "\\\\?\\C:\\" /* or //?/C:/ */ });
 ```
 
 ## Compatible with `node-glob`?
 
-| node-glob    | fast-glob |
-| :----------: | :-------: |
-| `cwd`        | [`cwd`](#cwd) |
-| `root`       | – |
-| `dot`        | [`dot`](#dot) |
-| `nomount`    | – |
-| `mark`       | [`markDirectories`](#markdirectories) |
-| `nosort`     | – |
-| `nounique`   | [`unique`](#unique) |
-| `nobrace`    | [`braceExpansion`](#braceexpansion) |
-| `noglobstar` | [`globstar`](#globstar) |
-| `noext`      | [`extglob`](#extglob) |
-| `nocase`     | [`caseSensitiveMatch`](#casesensitivematch) |
-| `matchBase`  | [`baseNameMatch`](#basenamematch) |
-| `nodir`      | [`onlyFiles`](#onlyfiles) |
-| `ignore`     | [`ignore`](#ignore) |
-| `follow`     | [`followSymbolicLinks`](#followsymboliclinks) |
-| `realpath`   | – |
-| `absolute`   | [`absolute`](#absolute) |
+|  node-glob   |                fast-glob-clone                |
+| :----------: | :-------------------------------------------: |
+|    `cwd`     |                 [`cwd`](#cwd)                 |
+|    `root`    |                       –                       |
+|    `dot`     |                 [`dot`](#dot)                 |
+|  `nomount`   |                       –                       |
+|    `mark`    |     [`markDirectories`](#markdirectories)     |
+|   `nosort`   |                       –                       |
+|  `nounique`  |              [`unique`](#unique)              |
+|  `nobrace`   |      [`braceExpansion`](#braceexpansion)      |
+| `noglobstar` |            [`globstar`](#globstar)            |
+|   `noext`    |             [`extglob`](#extglob)             |
+|   `nocase`   |  [`caseSensitiveMatch`](#casesensitivematch)  |
+| `matchBase`  |       [`baseNameMatch`](#basenamematch)       |
+|   `nodir`    |           [`onlyFiles`](#onlyfiles)           |
+|   `ignore`   |              [`ignore`](#ignore)              |
+|   `follow`   | [`followSymbolicLinks`](#followsymboliclinks) |
+|  `realpath`  |                       –                       |
+|  `absolute`  |            [`absolute`](#absolute)            |
 
 ## Benchmarks
 
@@ -755,9 +751,9 @@ fg.sync('Python27/*', { cwd: '\\\\?\\C:\\' /* or //?/C:/ */ });
 
 Link: [Vultr Bare Metal][vultr_pricing_baremetal]
 
-* Processor: E3-1270v6 (8 CPU)
-* RAM: 32GB
-* Disk: SSD ([Intel DC S3520 SSDSC2BB240G7][intel_ssd])
+-   Processor: E3-1270v6 (8 CPU)
+-   RAM: 32GB
+-   Disk: SSD ([Intel DC S3520 SSDSC2BB240G7][intel_ssd])
 
 You can see results [here][github_gist_benchmark_server] for latest release.
 
@@ -765,9 +761,9 @@ You can see results [here][github_gist_benchmark_server] for latest release.
 
 Link: [Zotac bi323][zotac_bi323]
 
-* Processor: Intel N3150 (4 CPU)
-* RAM: 8GB
-* Disk: SSD ([Silicon Power SP060GBSS3S55S25][silicon_power_ssd])
+-   Processor: Intel N3150 (4 CPU)
+-   RAM: 8GB
+-   Disk: SSD ([Silicon Power SP060GBSS3S55S25][silicon_power_ssd])
 
 You can see results [here][github_gist_benchmark_nettop] for latest release.
 
@@ -782,7 +778,7 @@ This software is released under the terms of the MIT license.
 [bash_hackers_syntax_expansion_brace]: https://wiki.bash-hackers.org/syntax/expansion/brace
 [github_gist_benchmark_nettop]: https://gist.github.com/mrmlnc/f06246b197f53c356895fa35355a367c#file-fg-benchmark-nettop-product-txt
 [github_gist_benchmark_server]: https://gist.github.com/mrmlnc/f06246b197f53c356895fa35355a367c#file-fg-benchmark-server-product-txt
-[github_releases]: https://github.com/mrmlnc/fast-glob/releases
+[github_releases]: https://github.com/noaholatoye/fast-glob-clone/releases
 [glob_definition]: https://en.wikipedia.org/wiki/Glob_(programming)
 [glob_linux_man]: http://man7.org/linux/man-pages/man3/glob.3.html
 [intel_ssd]: https://ark.intel.com/content/www/us/en/ark/products/93012/intel-ssd-dc-s3520-series-240gb-2-5in-sata-6gb-s-3d1-mlc.html
@@ -799,7 +795,7 @@ This software is released under the terms of the MIT license.
 [nodelib_fs_scandir_old_and_modern_modern]: https://github.com/nodelib/nodelib/blob/master/packages/fs/fs.scandir/README.md#old-and-modern-mode
 [npm_normalize_path]: https://www.npmjs.com/package/normalize-path
 [npm_unixify]: https://www.npmjs.com/package/unixify
-[paypal_mrmlnc]:https://paypal.me/mrmlnc
+[paypal_mrmlnc]: https://paypal.me/mrmlnc
 [picomatch_matching_behavior]: https://github.com/micromatch/picomatch#matching-behavior-vs-bash
 [picomatch_matching_special_characters_as_literals]: https://github.com/micromatch/picomatch#matching-special-characters-as-literals
 [picomatch_posix_brackets]: https://github.com/micromatch/picomatch#posix-brackets

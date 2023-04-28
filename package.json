@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrmlnc/fast-glob.git"
+    "url": "git+https://github.com/noaholatoye/fast-glob-clone.git"
   },
   "author": "Denis Malinochkin (https://mrmlnc.com)",
   "engines": {
@@ -79,7 +79,7 @@
     "bench:regression:stream": "hereby bench:regression:stream"
   },
   "bugs": {
-    "url": "https://github.com/mrmlnc/fast-glob/issues"
+    "url": "https://github.com/noaholatoye/fast-glob-clone/issues"
   },
-  "homepage": "https://github.com/mrmlnc/fast-glob#readme"
+  "homepage": "https://github.com/noaholatoye/fast-glob-clone#readme"
 }
